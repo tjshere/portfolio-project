@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tormoo9797 Portfolio</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
+        header { background: #330570; color: white; padding: 1rem; text-align: center; }
+        nav ul { list-style: none; padding: 0; display: flex; justify-content: center; gap: 20px; }
+        nav a { color: white; text-decoration: none; font-weight: bold; }
+        section { margin: 20px 0; padding: 20px; border-bottom: 1px solid #ddd; }
+        #welcome-display { font-size: 1.5rem; margin-bottom: 10px; color: #FFCF40; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div id="welcome-display">Welcome to my site!</div>
+        <h1>Torren Moore's Portfolio</h1>
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="about">
+            <h2>About Me</h2>
+            <p>I am Torren Moore, an IT Specialist and student at ECPI University specializing in Cybersecurity and Software Development. I have a background as a U.S. Navy Veteran and I am passionate about building secure, interactive web applications.</p>
+        </section>
+
+        <section id="projects">
+            <h2>Projects</h2>
+            <p>Below are links to some of my previous work on GitHub:</p>
+            <ul>
+                <li><a href="https://github.com/Tormoo9797/project1">Project One: Network Security</a></li>
+                <li><a href="https://github.com/Tormoo9797/project2">Project Two: Database Management</a></li>
+                <li><a href="https://github.com/Tormoo9797/project3">Project Three: Python Scripts</a></li>
+            </ul>
+        </section>
+
+        <section id="contact">
+            <h2>Contact</h2>
+            <form>
+                <label for="name">Name:</label><br>
+                <input type="text" id="name" name="name" required><br><br>
+                
+                <label for="email">Email Address:</label><br>
+                <input type="email" id="email" name="email" required><br><br>
+                
+                <label for="subject">Subject:</label><br>
+                <input type="text" id="subject" name="subject"><br><br>
+                
+                <label for="message">Message:</label><br>
+                <textarea id="message" name="message" rows="4"></textarea><br><br>
+                
+                <button type="submit">Submit</button>
+            </form>
+        </section>
+    </main>
+
+    <script>
+        // Prompt the user for their name and store it in a variable
+        var visitorName = prompt("Please enter your name:");
+
+        // Dynamically update the welcome message at the top of the page
+        if (visitorName) {
+            document.getElementById("welcome-display").innerText = "Hello, " + visitorName + "! Welcome to my portfolio.";
+        }
+    </script>
+
+</body>
+</html>
