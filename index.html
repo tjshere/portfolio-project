@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tormoo9797 Portfolio</title>
+    <style>
+        /* Base styles */
+        body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
+        header { background: #330570; color: white; padding: 1rem; text-align: center; }
+        nav ul { list-style: none; padding: 0; display: flex; justify-content: center; gap: 20px; }
+        nav a { color: white; text-decoration: none; font-weight: bold; }
+        section { margin: 20px 0; padding: 20px; border-bottom: 1px solid #ddd; }
+        #welcome-display { font-size: 1.5rem; margin-bottom: 10px; color: #FFCF40; }
+
+        /* Skills list */
+        #skills-list { padding-left: 20px; }
+        #skills-list li { margin-bottom: 5px; }
+
+        /* Featured Content divs */
+        #university-resources,
+        #personal-projects {
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 10px;
+        }
+        #university-resources {
+            background: #e8f0fe;
+            border: 1px solid #4285f4;
+        }
+        #personal-projects {
+            background: #e6f4ea;
+            border: 1px solid #34a853;
+        }
+        #university-resources h3,
+        #personal-projects h3 {
+            margin-top: 0;
+        }
+        #university-resources a,
+        #personal-projects a {
+            display: block;
+            margin: 5px 0;
+            color: #1a0a7c;
+        }
+        #personal-projects a img {
+            width: 120px;
+            height: 80px;
+            object-fit: cover;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            display: block;
+            margin-top: 4px;
+        }
+
+        /* Dark mode styles */
+        body.dark-mode {
+            background: #121212;
+            color: #f0f0f0;
+        }
+        body.dark-mode header {
+            background: #1e1e1e;
+        }
+        body.dark-mode section {
+            border-bottom-color: #444;
+        }
+        body.dark-mode #university-resources {
+            background: #1a2a4a;
+            border-color: #4285f4;
+            color: #f0f0f0;
+        }
+        body.dark-mode #personal-projects {
+            background: #1a3a2a;
+            border-color: #34a853;
+            color: #f0f0f0;
+        }
+        body.dark-mode #university-resources a,
+        body.dark-mode #personal-projects a {
+            color: #8ab4f8;
+        }
+
+        /* Dark mode toggle */
+        #dark-mode-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            justify-content: flex-end;
+            padding: 6px 10px;
+            font-size: 0.9rem;
+        }
+        .toggle-switch {
+            position: relative;
+            width: 44px;
+            height: 22px;
+        }
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: #ccc;
+            border-radius: 22px;
+            transition: 0.3s;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 3px;
+            bottom: 3px;
+            background: white;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+        input:checked + .slider { background: #330570; }
+        input:checked + .slider:before { transform: translateX(22px); }
+
+        /* Form confirmation message */
+        #form-confirmation {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background: #e6f4ea;
+            border: 1px solid #34a853;
+            border-radius: 4px;
+            color: #1e7e34;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Dark Mode Toggle -->
+    <div id="dark-mode-toggle">
+        <label for="darkModeCheckbox">Dark Mode</label>
+        <label class="toggle-switch">
+            <input type="checkbox" id="darkModeCheckbox" />
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <header>
+        <div id="welcome-display">Welcome to my site!</div>
+        <h1>Torren Moore's Portfolio</h1>
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#featured">Featured</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- About Section -->
+        <section id="about">
+            <h2>About Me</h2>
+            <p>Torren Moore, an IT Specialist and student at ECPI University specializing in Cybersecurity and Software Development. I have a background as a U.S. Navy Veteran and I am passionate about building secure, interactive web applications.</p>
+
+            <!-- Skills list populated by loop -->
+            <h3>Skills &amp; Technologies</h3>
+            <ul id="skills-list"></ul>
+        </section>
+
+        <!-- Featured Content Section -->
+        <section id="featured">
+            <h2>Featured Content</h2>
+
+            <div id="university-resources">
+                <h3>University Resources</h3>
+                <a href="https://www.ecpi.edu/programs/cybersecurity" target="_blank">ECPI Cybersecurity Program</a>
+                <a href="https://www.ecpi.edu/programs/information-technology" target="_blank">ECPI Information Technology Program</a>
+                <a href="https://ecpi.instructure.com" target="_blank">ECPI Canvas LMS</a>
+            </div>
+
+            <div id="personal-projects">
+                <h3>Personal Projects</h3>
+                <a href="https://github.com/Tormoo9797/project1" target="_blank">
+                    Project One: Network Security
+                </a>
+                <a href="https://github.com/Tormoo9797/project2" target="_blank">
+                    Project Two: Database Management
+                </a>
+                <a href="https://github.com/Tormoo9797/project3" target="_blank">
+                    Project Three: Python Scripts
+                </a>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects">
+            <h2>Projects</h2>
+            <p>Below are links to some of my previous work on GitHub:</p>
+            <ul>
+                <li><a href="https://github.com/Tormoo9797/project1">Project One: Network Security</a></li>
+                <li><a href="https://github.com/Tormoo9797/project2">Project Two: Database Management</a></li>
+                <li><a href="https://github.com/Tormoo9797/project3">Project Three: Python Scripts</a></li>
+            </ul>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <h2>Contact</h2>
+            <form id="contact-form">
+                <label for="name">Name:</label><br>
+                <input type="text" id="name" name="name" required><br><br>
+
+                <label for="email">Email Address:</label><br>
+                <input type="email" id="email" name="email" required><br><br>
+
+                <label for="subject">Subject:</label><br>
+                <input type="text" id="subject" name="subject"><br><br>
+
+                <label for="message">Message:</label><br>
+                <textarea id="message" name="message" rows="4"></textarea><br><br>
+
+                <button type="submit" id="submit-btn">Submit</button>
+            </form>
+            <!-- Confirmation message shown after form submit -->
+            <div id="form-confirmation"></div>
+        </section>
+    </main>
+
+    <script>
+        // ── Welcome prompt ────────────────────────────────────────────────
+        // Prompt the user for their name and store it in a variable
+        var visitorName = prompt("Please enter your name:");
+
+        // Dynamically update the welcome message at the top of the page
+        if (visitorName) {
+            document.getElementById("welcome-display").innerText =
+                "Hello, " + visitorName + "! Welcome to my portfolio.";
+        }
+
+        // ── Skills loop ───────────────────────────────────────────────────
+        // Array of skills and technologies
+        var skills = ["HTML", "CSS", "JavaScript", "Git", "GitHub",
+                      "Microsoft Entra / Intune", "Cisco Meraki", "Python"];
+
+        // Use forEach to render each skill as a bulleted list item in the About section
+        var skillsList = document.getElementById("skills-list");
+        skills.forEach(function(skill) {
+            var li = document.createElement("li");
+            li.textContent = skill;
+            skillsList.appendChild(li);
+        });
+
+        // ── Featured Content conditional logic ───────────────────────────
+        // Count projects listed in the Projects section
+        var projectCount = document.querySelectorAll("#projects ul li").length;
+
+        var universityDiv = document.getElementById("university-resources");
+        var projectsDiv   = document.getElementById("personal-projects");
+
+        // If fewer than 3 projects: show both divs
+        // Otherwise: show Personal Projects only, hide University Resources
+        if (projectCount < 3) {
+            universityDiv.style.display = "block";
+            projectsDiv.style.display   = "block";
+        } else {
+            universityDiv.style.display = "none";
+            projectsDiv.style.display   = "block";
+        }
+
+        // ── Dark mode toggle ──────────────────────────────────────────────
+        // Listen for changes on the dark mode checkbox and toggle the CSS class
+        var darkModeCheckbox = document.getElementById("darkModeCheckbox");
+        darkModeCheckbox.addEventListener("change", function() {
+            document.body.classList.toggle("dark-mode", this.checked);
+        });
+
+        // ── Contact form submit ───────────────────────────────────────────
+        // Select the submit button and add a click event listener
+        var submitBtn = document.querySelector("#submit-btn");
+        submitBtn.addEventListener("click", function(event) {
+            // Prevent the form from refreshing the page
+            event.preventDefault();
+
+            // Get the user's name from the form input
+            var userName = document.getElementById("name").value;
+
+            // Display a confirmation alert with the user's name
+            alert("Thank you, " + (userName || "visitor") +
+                  ", your message has been sent!");
+
+            // Also show an inline confirmation below the form
+            var confirmation = document.getElementById("form-confirmation");
+            confirmation.textContent = "Thank you, " + (userName || "visitor") +
+                                       ", your message has been sent!";
+            confirmation.style.display = "block";
+
+            // Clear the form fields
+            document.getElementById("contact-form").reset();
+        });
+    </script>
+
+</body>
+</html>
