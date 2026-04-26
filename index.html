@@ -24,102 +24,62 @@
             border-radius: 6px;
             margin-top: 10px;
         }
-        #university-resources {
-            background: #e8f0fe;
-            border: 1px solid #4285f4;
-        }
-        #personal-projects {
-            background: #e6f4ea;
-            border: 1px solid #34a853;
-        }
-        #university-resources h3,
-        #personal-projects h3 {
-            margin-top: 0;
-        }
-        #university-resources a,
-        #personal-projects a {
-            display: block;
-            margin: 5px 0;
-            color: #1a0a7c;
-        }
-        #personal-projects a img {
-            width: 120px;
-            height: 80px;
-            object-fit: cover;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            display: block;
-            margin-top: 4px;
-        }
+        #university-resources { background: #e8f0fe; border: 1px solid #4285f4; }
+        #personal-projects { background: #e6f4ea; border: 1px solid #34a853; }
+        #university-resources h3, #personal-projects h3 { margin-top: 0; }
+        #university-resources a, #personal-projects a { display: block; margin: 5px 0; color: #1a0a7c; }
 
         /* Dark mode styles */
-        body.dark-mode {
-            background: #121212;
-            color: #f0f0f0;
-        }
-        body.dark-mode header {
-            background: #1e1e1e;
-        }
-        body.dark-mode section {
-            border-bottom-color: #444;
-        }
-        body.dark-mode #university-resources {
-            background: #1a2a4a;
-            border-color: #4285f4;
-            color: #f0f0f0;
-        }
-        body.dark-mode #personal-projects {
-            background: #1a3a2a;
-            border-color: #34a853;
-            color: #f0f0f0;
-        }
-        body.dark-mode #university-resources a,
-        body.dark-mode #personal-projects a {
-            color: #8ab4f8;
-        }
+        body.dark-mode { background: #121212; color: #f0f0f0; }
+        body.dark-mode header { background: #1e1e1e; }
+        body.dark-mode section { border-bottom-color: #444; }
+        body.dark-mode #university-resources { background: #1a2a4a; border-color: #4285f4; color: #f0f0f0; }
+        body.dark-mode #personal-projects { background: #1a3a2a; border-color: #34a853; color: #f0f0f0; }
+        body.dark-mode #university-resources a, body.dark-mode #personal-projects a { color: #8ab4f8; }
 
         /* Dark mode toggle */
-        #dark-mode-toggle {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            justify-content: flex-end;
-            padding: 6px 10px;
-            font-size: 0.9rem;
-        }
-        .toggle-switch {
-            position: relative;
-            width: 44px;
-            height: 22px;
-        }
-        .toggle-switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: #ccc;
-            border-radius: 22px;
-            transition: 0.3s;
-        }
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 16px;
-            width: 16px;
-            left: 3px;
-            bottom: 3px;
-            background: white;
-            border-radius: 50%;
-            transition: 0.3s;
-        }
+        #dark-mode-toggle { display: flex; align-items: center; gap: 8px; justify-content: flex-end; padding: 6px 10px; font-size: 0.9rem; }
+        .toggle-switch { position: relative; width: 44px; height: 22px; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background: #ccc; border-radius: 22px; transition: 0.3s; }
+        .slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 3px; bottom: 3px; background: white; border-radius: 50%; transition: 0.3s; }
         input:checked + .slider { background: #330570; }
         input:checked + .slider:before { transform: translateX(22px); }
 
-        /* Form confirmation message */
+        /* 3.9 - Top notification banner */
+        #top-notification {
+            display: none;
+            background: #330570;
+            color: #FFCF40;
+            text-align: center;
+            padding: 10px;
+            font-weight: bold;
+            font-size: 1rem;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        /* 3.9 - Recent project note appended to About */
+        #recent-project-note {
+            margin-top: 12px;
+            padding: 10px;
+            background: #f0f4ff;
+            border-left: 4px solid #330570;
+            border-radius: 4px;
+            font-size: 0.95rem;
+        }
+
+        /* Form loading and confirmation messages */
+        #form-loading {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background: #fff8e1;
+            border: 1px solid #f9a825;
+            border-radius: 4px;
+            color: #7a5000;
+            font-style: italic;
+        }
         #form-confirmation {
             display: none;
             margin-top: 10px;
@@ -133,6 +93,9 @@
     </style>
 </head>
 <body>
+
+    <!-- 3.9: Top notification banner shown after a delay -->
+    <div id="top-notification"></div>
 
     <!-- Dark Mode Toggle -->
     <div id="dark-mode-toggle">
@@ -159,7 +122,7 @@
     <main>
         <!-- About Section -->
         <section id="about">
-            <h2>About Me</h2>
+            <h2 id="about-heading">About Me</h2>
             <p>Torren Moore, an IT Specialist and student at ECPI University specializing in Cybersecurity and Software Development. I have a background as a U.S. Navy Veteran and I am passionate about building secure, interactive web applications.</p>
 
             <!-- Skills list populated by loop -->
@@ -170,31 +133,23 @@
         <!-- Featured Content Section -->
         <section id="featured">
             <h2>Featured Content</h2>
-
             <div id="university-resources">
                 <h3>University Resources</h3>
                 <a href="https://www.ecpi.edu/programs/cybersecurity" target="_blank">ECPI Cybersecurity Program</a>
                 <a href="https://www.ecpi.edu/programs/information-technology" target="_blank">ECPI Information Technology Program</a>
                 <a href="https://ecpi.instructure.com" target="_blank">ECPI Canvas LMS</a>
             </div>
-
             <div id="personal-projects">
                 <h3>Personal Projects</h3>
-                <a href="https://github.com/Tormoo9797/project1" target="_blank">
-                    Project One: Network Security
-                </a>
-                <a href="https://github.com/Tormoo9797/project2" target="_blank">
-                    Project Two: Database Management
-                </a>
-                <a href="https://github.com/Tormoo9797/project3" target="_blank">
-                    Project Three: Python Scripts
-                </a>
+                <a href="https://github.com/Tormoo9797/project1" target="_blank">Project One: Network Security</a>
+                <a href="https://github.com/Tormoo9797/project2" target="_blank">Project Two: Database Management</a>
+                <a href="https://github.com/Tormoo9797/project3" target="_blank">Project Three: Python Scripts</a>
             </div>
         </section>
 
         <!-- Projects Section -->
         <section id="projects">
-            <h2>Projects</h2>
+            <h2 id="projects-heading">Projects</h2>
             <p>Below are links to some of my previous work on GitHub:</p>
             <ul>
                 <li><a href="https://github.com/Tormoo9797/project1">Project One: Network Security</a></li>
@@ -209,19 +164,17 @@
             <form id="contact-form">
                 <label for="name">Name:</label><br>
                 <input type="text" id="name" name="name" required><br><br>
-
                 <label for="email">Email Address:</label><br>
                 <input type="email" id="email" name="email" required><br><br>
-
                 <label for="subject">Subject:</label><br>
                 <input type="text" id="subject" name="subject"><br><br>
-
                 <label for="message">Message:</label><br>
                 <textarea id="message" name="message" rows="4"></textarea><br><br>
-
                 <button type="submit" id="submit-btn">Submit</button>
             </form>
-            <!-- Confirmation message shown after form submit -->
+            <!-- 3.9: Loading message shown while setTimeout is running -->
+            <div id="form-loading">Sending message...</div>
+            <!-- Confirmation message shown after delay completes -->
             <div id="form-confirmation"></div>
         </section>
     </main>
@@ -253,18 +206,17 @@
         // ── Featured Content conditional logic ───────────────────────────
         // Count projects listed in the Projects section
         var projectCount = document.querySelectorAll("#projects ul li").length;
-
         var universityDiv = document.getElementById("university-resources");
-        var projectsDiv   = document.getElementById("personal-projects");
+        var projectsDiv = document.getElementById("personal-projects");
 
         // If fewer than 3 projects: show both divs
         // Otherwise: show Personal Projects only, hide University Resources
         if (projectCount < 3) {
             universityDiv.style.display = "block";
-            projectsDiv.style.display   = "block";
+            projectsDiv.style.display = "block";
         } else {
             universityDiv.style.display = "none";
-            projectsDiv.style.display   = "block";
+            projectsDiv.style.display = "block";
         }
 
         // ── Dark mode toggle ──────────────────────────────────────────────
@@ -274,7 +226,41 @@
             document.body.classList.toggle("dark-mode", this.checked);
         });
 
-        // ── Contact form submit ───────────────────────────────────────────
+        // ── 3.9: Dynamically add a new element using createElement() ─────
+        // Create a new paragraph about a recent project and append it to the About section
+        var recentNote = document.createElement("p");
+        recentNote.id = "recent-project-note";
+        recentNote.textContent = "Recently completed: A portfolio site built with HTML, CSS, and JavaScript " +
+                                 "featuring dark mode, dynamic DOM manipulation, and GitHub Pages deployment.";
+        document.getElementById("about").appendChild(recentNote);
+
+        // ── 3.9: Reference and modify existing elements with selectors ────
+        // Use getElementById to select the About heading and update its style
+        var aboutHeading = document.getElementById("about-heading");
+        aboutHeading.style.color = "#330570";
+        aboutHeading.style.borderBottom = "2px solid #FFCF40";
+        aboutHeading.style.paddingBottom = "6px";
+
+        // Use getElementById to select the Projects heading and update its style
+        var projectsHeading = document.getElementById("projects-heading");
+        projectsHeading.style.color = "#330570";
+        projectsHeading.style.borderBottom = "2px solid #FFCF40";
+        projectsHeading.style.paddingBottom = "6px";
+
+        // ── 3.9: Timed notification banner ───────────────────────────────
+        // Use setTimeout to show a notification banner 2 seconds after page load
+        setTimeout(function() {
+            var notification = document.getElementById("top-notification");
+            notification.textContent = "Thanks for visiting! Feel free to reach out via the Contact section.";
+            notification.style.display = "block";
+
+            // Hide the notification after 5 more seconds
+            setTimeout(function() {
+                notification.style.display = "none";
+            }, 5000);
+        }, 2000);
+
+        // ── 3.9: Timed form confirmation with loading message ─────────────
         // Select the submit button and add a click event listener
         var submitBtn = document.querySelector("#submit-btn");
         submitBtn.addEventListener("click", function(event) {
@@ -284,18 +270,25 @@
             // Get the user's name from the form input
             var userName = document.getElementById("name").value;
 
-            // Display a confirmation alert with the user's name
-            alert("Thank you, " + (userName || "visitor") +
-                  ", your message has been sent!");
-
-            // Also show an inline confirmation below the form
+            // Hide any previous confirmation and show the loading message dynamically
+            var loadingMsg = document.getElementById("form-loading");
             var confirmation = document.getElementById("form-confirmation");
-            confirmation.textContent = "Thank you, " + (userName || "visitor") +
-                                       ", your message has been sent!";
-            confirmation.style.display = "block";
+            confirmation.style.display = "none";
+            loadingMsg.style.display = "block";
 
-            // Clear the form fields
-            document.getElementById("contact-form").reset();
+            // Use setTimeout to delay the confirmation message by 2.5 seconds
+            setTimeout(function() {
+                // Hide the loading message
+                loadingMsg.style.display = "none";
+
+                // Replace loading message with confirmation message
+                confirmation.textContent = "Message sent successfully! Thanks, " +
+                                           (userName || "visitor") + ".";
+                confirmation.style.display = "block";
+
+                // Clear the form fields after confirmation
+                document.getElementById("contact-form").reset();
+            }, 2500);
         });
     </script>
 
