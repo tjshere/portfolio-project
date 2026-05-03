@@ -12,11 +12,11 @@
         nav a { color: white; text-decoration: none; font-weight: bold; }
         section { margin: 20px 0; padding: 20px; border-bottom: 1px solid #ddd; }
         #welcome-display { font-size: 1.5rem; margin-bottom: 10px; color: #FFCF40; }
-
+ 
         /* Skills list */
         #skills-list { padding-left: 20px; }
         #skills-list li { margin-bottom: 5px; }
-
+ 
         /* Featured Content divs */
         #university-resources,
         #personal-projects {
@@ -28,7 +28,7 @@
         #personal-projects { background: #e6f4ea; border: 1px solid #34a853; }
         #university-resources h3, #personal-projects h3 { margin-top: 0; }
         #university-resources a, #personal-projects a { display: block; margin: 5px 0; color: #1a0a7c; }
-
+ 
         /* Dark mode styles */
         body.dark-mode { background: #121212; color: #f0f0f0; }
         body.dark-mode header { background: #1e1e1e; }
@@ -36,7 +36,7 @@
         body.dark-mode #university-resources { background: #1a2a4a; border-color: #4285f4; color: #f0f0f0; }
         body.dark-mode #personal-projects { background: #1a3a2a; border-color: #34a853; color: #f0f0f0; }
         body.dark-mode #university-resources a, body.dark-mode #personal-projects a { color: #8ab4f8; }
-
+ 
         /* Dark mode toggle */
         #dark-mode-toggle { display: flex; align-items: center; gap: 8px; justify-content: flex-end; padding: 6px 10px; font-size: 0.9rem; }
         .toggle-switch { position: relative; width: 44px; height: 22px; }
@@ -45,7 +45,7 @@
         .slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 3px; bottom: 3px; background: white; border-radius: 50%; transition: 0.3s; }
         input:checked + .slider { background: #330570; }
         input:checked + .slider:before { transform: translateX(22px); }
-
+ 
         /* 3.9 - Top notification banner */
         #top-notification {
             display: none;
@@ -58,7 +58,7 @@
             border-radius: 4px;
             margin-bottom: 10px;
         }
-
+ 
         /* 3.9 - Recent project note appended to About */
         #recent-project-note {
             margin-top: 12px;
@@ -68,7 +68,7 @@
             border-radius: 4px;
             font-size: 0.95rem;
         }
-
+ 
         /* Form loading and confirmation messages */
         #form-loading {
             display: none;
@@ -90,13 +90,56 @@
             color: #1e7e34;
             font-weight: bold;
         }
+ 
+        /* 4.8 - Welcome modal overlay */
+        #modal-overlay {
+            display: flex;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        #modal-box {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        #modal-box h2 { color: #330570; margin-top: 0; }
+        #modal-box p { margin: 1rem 0; }
+        #modal-close-btn {
+            background: #330570;
+            color: #FFCF40;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        #modal-close-btn:hover { background: #4a0a9e; }
     </style>
 </head>
 <body>
-
+ 
+    <!-- 4.8: Welcome modal - replaces prompt() -->
+    <div id="modal-overlay">
+        <div id="modal-box">
+            <h2>Welcome!</h2>
+            <p>This page is a work in progress.</p>
+            <!-- Close button dismisses the modal -->
+            <button id="modal-close-btn" onclick="document.getElementById('modal-overlay').style.display='none'">Close</button>
+        </div>
+    </div>
+ 
     <!-- 3.9: Top notification banner shown after a delay -->
     <div id="top-notification"></div>
-
+ 
     <!-- Dark Mode Toggle -->
     <div id="dark-mode-toggle">
         <label for="darkModeCheckbox">Dark Mode</label>
@@ -105,7 +148,7 @@
             <span class="slider"></span>
         </label>
     </div>
-
+ 
     <header>
         <div id="welcome-display">Welcome to my site!</div>
         <h1>Torren Moore's Portfolio</h1>
@@ -118,18 +161,18 @@
             </ul>
         </nav>
     </header>
-
+ 
     <main>
         <!-- About Section -->
         <section id="about">
             <h2 id="about-heading">About Me</h2>
             <p>Torren Moore, an IT Specialist and student at ECPI University specializing in Cybersecurity and Software Development. I have a background as a U.S. Navy Veteran and I am passionate about building secure, interactive web applications.</p>
-
+ 
             <!-- Skills list populated by loop -->
             <h3>Skills &amp; Technologies</h3>
             <ul id="skills-list"></ul>
         </section>
-
+ 
         <!-- Featured Content Section -->
         <section id="featured">
             <h2>Featured Content</h2>
@@ -146,7 +189,7 @@
                 <a href="https://github.com/Tormoo9797/project3" target="_blank">Project Three: Python Scripts</a>
             </div>
         </section>
-
+ 
         <!-- Projects Section -->
         <section id="projects">
             <h2 id="projects-heading">Projects</h2>
@@ -157,7 +200,7 @@
                 <li><a href="https://github.com/Tormoo9797/project3">Project Three: Python Scripts</a></li>
             </ul>
         </section>
-
+ 
         <!-- Contact Section -->
         <section id="contact">
             <h2>Contact</h2>
@@ -170,7 +213,8 @@
                 <input type="text" id="subject" name="subject"><br><br>
                 <label for="message">Message:</label><br>
                 <textarea id="message" name="message" rows="4"></textarea><br><br>
-                <button type="submit" id="submit-btn">Submit</button>
+                <!-- 4.8: Tooltip on submit button via title attribute -->
+                <button type="submit" id="submit-btn" title="Click to send your message!">Submit</button>
             </form>
             <!-- 3.9: Loading message shown while setTimeout is running -->
             <div id="form-loading">Sending message...</div>
@@ -178,23 +222,32 @@
             <div id="form-confirmation"></div>
         </section>
     </main>
-
+ 
     <script>
-        // ── Welcome prompt ────────────────────────────────────────────────
-        // Prompt the user for their name and store it in a variable
-        var visitorName = prompt("Please enter your name:");
-
-        // Dynamically update the welcome message at the top of the page
-        if (visitorName) {
-            document.getElementById("welcome-display").innerText =
-                "Hello, " + visitorName + "! Welcome to my portfolio.";
+        // ── 4.8: Persistent dark mode via localStorage ────────────────────
+        // Check localStorage for a saved dark mode preference on page load
+        var darkModeCheckbox = document.getElementById("darkModeCheckbox");
+        if (localStorage.getItem("darkMode") === "true") {
+            document.body.classList.add("dark-mode");
+            darkModeCheckbox.checked = true;
         }
-
+ 
+        // Save the dark mode preference to localStorage whenever the toggle changes
+        darkModeCheckbox.addEventListener("change", function() {
+            if (this.checked) {
+                document.body.classList.add("dark-mode");
+                localStorage.setItem("darkMode", "true");
+            } else {
+                document.body.classList.remove("dark-mode");
+                localStorage.setItem("darkMode", "false");
+            }
+        });
+ 
         // ── Skills loop ───────────────────────────────────────────────────
         // Array of skills and technologies
         var skills = ["HTML", "CSS", "JavaScript", "Git", "GitHub",
                       "Microsoft Entra / Intune", "Cisco Meraki", "Python"];
-
+ 
         // Use forEach to render each skill as a bulleted list item in the About section
         var skillsList = document.getElementById("skills-list");
         skills.forEach(function(skill) {
@@ -202,13 +255,13 @@
             li.textContent = skill;
             skillsList.appendChild(li);
         });
-
+ 
         // ── Featured Content conditional logic ───────────────────────────
         // Count projects listed in the Projects section
         var projectCount = document.querySelectorAll("#projects ul li").length;
         var universityDiv = document.getElementById("university-resources");
         var projectsDiv = document.getElementById("personal-projects");
-
+ 
         // If fewer than 3 projects: show both divs
         // Otherwise: show Personal Projects only, hide University Resources
         if (projectCount < 3) {
@@ -218,14 +271,7 @@
             universityDiv.style.display = "none";
             projectsDiv.style.display = "block";
         }
-
-        // ── Dark mode toggle ──────────────────────────────────────────────
-        // Listen for changes on the dark mode checkbox and toggle the CSS class
-        var darkModeCheckbox = document.getElementById("darkModeCheckbox");
-        darkModeCheckbox.addEventListener("change", function() {
-            document.body.classList.toggle("dark-mode", this.checked);
-        });
-
+ 
         // ── 3.9: Dynamically add a new element using createElement() ─────
         // Create a new paragraph about a recent project and append it to the About section
         var recentNote = document.createElement("p");
@@ -233,64 +279,65 @@
         recentNote.textContent = "Recently completed: A portfolio site built with HTML, CSS, and JavaScript " +
                                  "featuring dark mode, dynamic DOM manipulation, and GitHub Pages deployment.";
         document.getElementById("about").appendChild(recentNote);
-
+ 
         // ── 3.9: Reference and modify existing elements with selectors ────
         // Use getElementById to select the About heading and update its style
         var aboutHeading = document.getElementById("about-heading");
         aboutHeading.style.color = "#330570";
         aboutHeading.style.borderBottom = "2px solid #FFCF40";
         aboutHeading.style.paddingBottom = "6px";
-
+ 
         // Use getElementById to select the Projects heading and update its style
         var projectsHeading = document.getElementById("projects-heading");
         projectsHeading.style.color = "#330570";
         projectsHeading.style.borderBottom = "2px solid #FFCF40";
         projectsHeading.style.paddingBottom = "6px";
-
+ 
         // ── 3.9: Timed notification banner ───────────────────────────────
         // Use setTimeout to show a notification banner 2 seconds after page load
         setTimeout(function() {
             var notification = document.getElementById("top-notification");
             notification.textContent = "Thanks for visiting! Feel free to reach out via the Contact section.";
             notification.style.display = "block";
-
+ 
             // Hide the notification after 5 more seconds
             setTimeout(function() {
                 notification.style.display = "none";
             }, 5000);
         }, 2000);
-
+ 
         // ── 3.9: Timed form confirmation with loading message ─────────────
         // Select the submit button and add a click event listener
         var submitBtn = document.querySelector("#submit-btn");
         submitBtn.addEventListener("click", function(event) {
             // Prevent the form from refreshing the page
             event.preventDefault();
-
+ 
             // Get the user's name from the form input
             var userName = document.getElementById("name").value;
-
+ 
             // Hide any previous confirmation and show the loading message dynamically
             var loadingMsg = document.getElementById("form-loading");
             var confirmation = document.getElementById("form-confirmation");
             confirmation.style.display = "none";
             loadingMsg.style.display = "block";
-
+ 
             // Use setTimeout to delay the confirmation message by 2.5 seconds
             setTimeout(function() {
                 // Hide the loading message
                 loadingMsg.style.display = "none";
-
+ 
                 // Replace loading message with confirmation message
                 confirmation.textContent = "Message sent successfully! Thanks, " +
                                            (userName || "visitor") + ".";
                 confirmation.style.display = "block";
-
+ 
                 // Clear the form fields after confirmation
                 document.getElementById("contact-form").reset();
             }, 2500);
         });
     </script>
-
+ 
 </body>
 </html>
+ 
